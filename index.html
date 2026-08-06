@@ -1,29 +1,33 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini Paint</title>
+    <title>Document</title>
+
+   
     <style>
-        body {
+        body{
             text-align: center;
             font-family: Arial, Helvetica, sans-serif;
         }
-        canvas{
+        canvas {
             border: 2px solid black;
             cursor: crosshair;
         }
     </style>
+
 </head>
 <body>
-    <h1> Mini Paint</h1>
-    <input type= "color" id="cor">
-    <button id="limpar"> Limpar</button>
-    <button id="exportar"> Exportar</button>
+    <h1>mini paint</h1>
+    <input type="color"id="cor">
+    <button id="limpar">limpar</button>
+    <button id="exportar">exportar</button>
     <br>
     <br>
-    <canvas id="tela" width="600" height="400"></canvas>
+    <canvas id="tela" width= "600" height="400" ></canvas>
 
+   
     <script>
         const tela = document.getElementById("tela");
         const ctx = tela.getContext("2d");
@@ -34,27 +38,39 @@
             desenhando = true;
             ctx.beginPath();
         }
-        tela.onmousedown = () => desenhando = true;
-        
+
         tela.onmouseup = () => desenhando = false;
 
-            tela.onmousemove = e => {
-                if (!desenhando) return;
+        tela.onmousemove = e => {
+            if (!desenhando) return;
 
-                ctx.strokeStyle = cor.value;
-                ctx.lineTo(e.offsetX, e.offsetY);
-                ctx.stroke();
-            };
+            ctx.strokeStyle = cor.value;
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
 
-            tela.onmouseleave = () => {
-                desenhando = false;
-                ctx.beginpath();
-            }
+         };
 
-            limpar.onclick = () =>
-                ctx.clearRect(0, 0, tela.width, tela.height);
+         tela.onmouseleave =() => {
+            desenhando = false;
+            ctx, beginPath();
+         }
+         
 
-            // Desafio: Criar função para exportar e corrigir completamente
+         limpar.onclick = () =>
+            ctx.clearRect(0, 0, tela.width, tela.height);
+
+            ctx.fillStyle ="white";
+        ctx.fillRect(0, 0, tela.width, tela.height);
+
+        // Exportar imagem
+exportar.onclick = () => {
+    const link = document.createElement("a");
+    link.download = "desenho.png";
+    link.href = tela.toDataURL("image/png");
+    link.click();
+
+};
+
     </script>
 </body>
 </html>
